@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, type ComponentType } from "react"
+import React, { useRef, useEffect } from "react"
+import type { ComponentType } from "react"
 
-export function withHighlight(Component: ComponentType): ComponentType {
+export function withHighlight(Component: any): ComponentType {
     return (props) => {
-        const ref = useRef<HTMLDivElement>(null)
+        const ref = useRef(null)
 
         useEffect(() => {
             if (!ref.current) {
