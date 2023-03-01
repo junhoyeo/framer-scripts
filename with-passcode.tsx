@@ -30,11 +30,18 @@ export function withPasscode(Component): ComponentType {
                         bottom: 0,
                     }}
                 >
-                    <h1>Input PIN (Hint: Default is 1234)</h1>
+                    <h1 style={{ fontSize: 18 }}>
+                        Input PIN (Hint: default is 1234)
+                    </h1>
                     <input
-                        autoFocus
+                        style={{
+                            marginTop: 12,
+                            fontSize: 16,
+                            padding: "6px 12px",
+                        }}
                         value={passcode}
                         onChange={(e) => setPasscode(e.target.value)}
+                        autoFocus
                     />
                 </div>
             )
