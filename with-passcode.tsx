@@ -31,6 +31,7 @@ export function withPasscode(Component): ComponentType {
                 >
                     <h1>Input PIN</h1>
                     <input
+                        autoFocus
                         value={passcode}
                         onChange={(e) => setPasscode(e.target.value)}
                     />
