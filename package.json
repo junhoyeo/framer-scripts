@@ -6,9 +6,11 @@
   "author": "Junho Yeo <i@junho.io>",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^18.0.28",
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "js-sha512": "^0.8.0",
     "react": "^18.2.0"
   }
 }

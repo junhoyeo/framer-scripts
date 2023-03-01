@@ -3,7 +3,7 @@ import type { ComponentType } from "react"
 
 export function withHighlight(Component: any): ComponentType {
     return (props) => {
-        const ref = useRef(null)
+        const ref = useRef<any>(null)
 
         useEffect(() => {
             if (!ref.current) {
