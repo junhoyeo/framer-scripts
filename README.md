@@ -9,4 +9,5 @@ Highlighter for Framer, implemented by Code Overrides.
 4. Go back to the **Text** node and select `withHighlight` in the **Code Overrides** section.
 
 # Simple Passcode Implementation
-[Code](./with-passcode.tsx)
+- [Code](./with-passcode.tsx)
+- [Demo](https://feedback-harm-302980.framer.app/)
