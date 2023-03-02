@@ -47,15 +47,7 @@ export function withPasscode(Component): ComponentType {
         }
 
         return (
-            <Component
-                {...props}
-                // animate={{
-                //     background: store.background,
-                // }}
-                // onClick={() => {
-                //     setStore({ background: randomColor() })
-                // }}
-            />
+            <Component {...props} />
         )
     }
 }
