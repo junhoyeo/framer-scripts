@@ -1,4 +1,4 @@
-import React, { ComponentType, useState, useMemo } from "react"
+import React, { ComponentType, useState, useMemo, useEffect } from "react"
 import { sha512 } from "js-sha512"
 
 // SHA512-encoded passcode hardcoded here
@@ -9,6 +9,21 @@ export function withPasscode(Component): ComponentType {
     return (props) => {
         const [passcode, setPasscode] = useState<string>("")
 
+        // Listen to messages from the iframe
+        useEffect(() => {
+            const handler = (event: any) => {
+                if (event.data.type === "passcodeChange") {
+                    setPasscode(event.data.value)
+                }
+            }
+
+            window.addEventListener("message", handler)
+
+            return () => {
+                window.removeEventListener("message", handler)
+            }
+        }, [])
+
         const hashedPasscode = useMemo(
             () => sha512.create().update(passcode).hex(),
             [passcode]
@@ -16,34 +31,18 @@ export function withPasscode(Component): ComponentType {
 
         if (hashedPasscode !== PASSCODE) {
             return (
-                // Add custom styles for your Passcode input page
-                <div
+                <iframe
+                    src="/passcode-required"
                     style={{
                         position: "absolute",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
                         top: 0,
                         right: 0,
                         left: 0,
                         bottom: 0,
+                        width: "100%",
+                        height: "100%",
                     }}
-                >
-                    <h1 style={{ fontSize: 18 }}>
-                        Input PIN (Hint: default is 1234)
-                    </h1>
-                    <input
-                        style={{
-                            marginTop: 12,
-                            fontSize: 16,
-                            padding: "6px 12px",
-                        }}
-                        value={passcode}
-                        onChange={(e) => setPasscode(e.target.value)}
-                        autoFocus
-                    />
-                </div>
+                />
             )
         }
 

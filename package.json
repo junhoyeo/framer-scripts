@@ -10,6 +10,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "framer": "^2.3.0",
     "js-sha512": "^0.8.0",
     "react": "^18.2.0"
   }
