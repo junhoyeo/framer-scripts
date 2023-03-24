@@ -1,4 +1,4 @@
-import React, { ComponentType, useState, useMemo, useEffect } from "react"
+import React, { ComponentType, useState, useMemo, useEffect, useCallback } from "react"
 import { sha512 } from "js-sha512"
 
 // SHA512-encoded passcode hardcoded here
@@ -29,10 +29,31 @@ export function withPasscode(Component): ComponentType {
             [passcode]
         )
 
+        const onLoad = useCallback((e: any) => {
+            console.log(e)
+            const iframe = e.target
+            const handleClick = (e: any) => {
+                e.preventDefault()
+                const target = e.target.cloneNode(true)
+                console.log({target})
+                target.style.display = "none"
+                document.body.appendChild(target)
+                target.click()
+                document.body.removeChild(target)
+            }
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+            [...iframeDoc.querySelectorAll('a')].map(v => {
+                v.target = '_top'
+            })
+            iframeDoc.addEventListener("click", handleClick);
+        }, [])
+
         if (hashedPasscode !== PASSCODE) {
             return (
                 <iframe
                     src="/passcode-required"
+                    sandbox="allow-forms allow-pointer-lock	allow-same-origin allow-scripts"
+                    onLoad={onLoad}
                     style={{
                         position: "absolute",
                         top: 0,
